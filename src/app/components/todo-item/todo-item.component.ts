@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Todo } from 'src/app/models/Todo';
+import { GetTodosService } from "../../services/get-todos.service"
 
 @Component({
   selector: 'app-todo-item',
@@ -9,13 +10,14 @@ import { Todo } from 'src/app/models/Todo';
 export class TodoItemComponent implements OnInit {
   @Input() todo: string | undefined;
 
-  constructor() { }
+  constructor(private todoService:GetTodosService) { }
 
   ngOnInit(): void {
   }
 
   onToggle(todo: any) {
-    console.log(todo)
+    todo.completed = !todo.completed
+    this.todoService.toggleCompleted(todo)
   }
 
   onDelete(todo: any) {
